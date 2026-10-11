@@ -108,6 +108,7 @@ public class UUIDLookup {
                     if (obj.has(ERROR_TOKEN)) {
                         String error = obj.get(ERROR_TOKEN).getAsString();
                         future.completeExceptionally(new UnsupportedOperationException(error));
+                        return;
                     }
 
                     String id = obj.get("id").getAsString();
@@ -117,7 +118,7 @@ public class UUIDLookup {
                 logger.log(Level.SEVERE, "Malformed sessions url: {0}", targetUrl);
                 future.completeExceptionally(e);
             } catch (Exception e) {
-                logger.log(Level.SEVERE, "Exception while requesting skin: {0}", targetUrl);
+                PlayerSkin.logRequestFailure(logger, targetUrl, e);
                 future.completeExceptionally(e);
             }
         });

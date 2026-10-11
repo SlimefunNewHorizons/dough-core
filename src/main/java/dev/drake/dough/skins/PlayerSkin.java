@@ -133,16 +133,36 @@ public class PlayerSkin {
                     }
 
                 }
+
+                // Profile without textures (or empty body): never leave the caller waiting
+                future.completeExceptionally(new IllegalStateException("No textures found for profile " + uuid));
             } catch (MalformedURLException e) {
                 logger.log(Level.SEVERE, "Malformed sessions url: {0}", targetUrl);
                 future.completeExceptionally(e);
             } catch (IOException e) {
-                logger.log(Level.SEVERE, "Exception while requesting skin: {0}", targetUrl);
+                logRequestFailure(logger, targetUrl, e);
                 future.completeExceptionally(e);
             }
         });
 
         return future;
+    }
+
+    /**
+     * Mojang answers HTTP 429 when its API is rate-limited. That is expected and the caller
+     * gets the exception to schedule its own backoff, so it is not logged as SEVERE.
+     */
+    static boolean isRateLimited(@Nonnull Exception e) {
+        String message = e.getMessage();
+        return message != null && message.contains("HTTP response code: 429");
+    }
+
+    static void logRequestFailure(@Nonnull DoughLogger logger, @Nonnull String targetUrl, @Nonnull Exception e) {
+        if (isRateLimited(e)) {
+            logger.log(Level.FINE, "Mojang API rate-limited (HTTP 429): {0}", targetUrl);
+        } else {
+            logger.log(Level.SEVERE, "Exception while requesting skin: {0}", targetUrl);
+        }
     }
 
 }
