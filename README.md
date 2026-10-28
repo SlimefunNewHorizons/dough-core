@@ -66,6 +66,14 @@ Todo el contenido, recetas y maquinaria se desbloquean e investigan directamente
 
 ---
 
+## 🌐 Línea Universal 26.x (rama `port-26x`)
+
+* **Versión:** `1.3.1-Universal-26.x-SNAPSHOT` (separada de la 1.21.11 de `main`).
+* **Namespace upstream restaurado:** vuelve a `io.github.bakedlibs.dough` (commit `69e6dbf`), lo que arregla `CustomGameProfile` frente al Authlib final de 26.x.
+* **Publicación:** `mvn deploy` sube el artefacto a `https://maven.drakescraft.cl/` (repo `maven-repo`); `Slimefun4-Drake` (`port-26x`) lo consume desde ahí. Tras publicar, recompila Slimefun (dough va shadeado).
+
+---
+
 ## 📥 Instalación
 
 1. Descarga el `.jar` de la última versión desde la pestaña Releases o Modrinth.
