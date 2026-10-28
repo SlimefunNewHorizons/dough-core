@@ -1,12 +1,12 @@
 
 > [!IMPORTANT]
-> **dough va SHADEADO dentro de Slimefun, no como jar suelto.** El código fuente
-> vive en el repo `dough-core`, pero Slimefun lo consume como dependencia Maven
-> (`com.github.drakescraft_labs:dough-core`) y al empaquetar lo reubica a
-> `com.github.drakescraft_labs.slimefun4.libraries.dough`. **No existe un
-> `dough.jar` en producción.** Por tanto, cualquier cambio en `dough-core` exige:
-> `mvn install` en dough-core → **recompilar Slimefun** (y todo plugin que lo
-> shadee) → subir esos jars. Subir dough suelto no aplica el cambio.
+> **dough is SHADED inside Slimefun, not shipped as a standalone jar.** The source
+> lives in the `dough-core` repo, but Slimefun consumes it as a Maven dependency
+> (`com.github.drakescraft_labs:dough-core`) and relocates it when packaging to
+> `com.github.drakescraft_labs.slimefun4.libraries.dough`. **There is no
+> `dough.jar` in production.** Therefore, any change to `dough-core` requires:
+> `mvn install` in dough-core -> **rebuild Slimefun** (and every plugin that
+> shades it) -> upload those jars. Uploading dough on its own has no effect.
 
 <div align="center">
 
@@ -25,67 +25,74 @@
 
 </div>
 
-> ### 🏰 ¡Únete a la Comunidad Oficial de DrakesCraft!
+> ### 🏰 Join the Official DrakesCraft Community!
 > 
-> * 🎮 **IP del Servidor**: `play.drakescraft.net` *(Java 1.21.11 & Bedrock)*
-> * 💬 **Discord Oficial**: [discord.gg/drakescraft](https://discord.gg/rv3vtXZTk7)
-> * 🌐 **Web & Guía**: [drakescraft.net](https://drakescraft.net) — 🛒 **Tienda**: [tienda.drakescraft.net](https://tienda.drakescraft.net)
+> * 🎮 **Server IP**: `play.drakescraft.net` *(Java 1.21.11 & Bedrock)*
+> * 💬 **Official Discord**: [discord.gg/drakescraft](https://discord.gg/rv3vtXZTk7)
+> * 🌐 **Web & Guide**: [drakescraft.net](https://drakescraft.net) — 🛒 **Store**: [tienda.drakescraft.net](https://tienda.drakescraft.net)
 > 
-> *¡Juega con este addon y más de 80 expansiones optimizadas en vivo en nuestra network de supervivencia técnica!*
+> *Play with this addon and 80+ more optimized expansions live on our technical survival network!*
 
 ---
 
 ---
 
-## 📖 Descripción Detallada
+## 📖 Detailed Description
 
-**dough-core** es una expansión modular del ecosistema **DrakesCraft Labs** para servidores Minecraft **Paper / Purpur 1.21.11**.
+**dough-core** is a modular library of the **DrakesCraft Labs** ecosystem for **Paper / Purpur 1.21.11** Minecraft servers.
 
-Addon de Slimefun mantenido y optimizado por DrakesCraft Labs para Paper 1.21.11.
+A Slimefun addon library maintained and optimized by DrakesCraft Labs for Paper 1.21.11.
 
-Todo el contenido, recetas y maquinaria se desbloquean e investigan directamente desde la **Guía de Slimefun (`/sf guide`)** sin necesidad de comandos especiales.
-
----
-
-## ⚙️ Características y Sistemas Principales
-
-* 🚀 **Rendimiento Optimizado**: Totalmente preparado para Java 21 sobre Paper 1.21.11, sin pausas de Garbage Collector ni telemetría externa.
-* 🛡️ **Seguridad e Integridad**: Transacciones atómicas de almacenamiento y protección estricta de inventarios.
-* 🎮 **Integración Total**: Compatible con Slimefun4-Drake, redes de logística NetworksV6, maquinaria pesada y economía global.
+All content, recipes and machinery are unlocked and researched directly from the **Slimefun Guide (`/sf guide`)** with no special commands.
 
 ---
 
-## 📋 Compatibilidad Técnica
+## ⚙️ Main Features and Systems
 
-| Parámetro | Requisito |
+* 🚀 **Optimized performance**: Fully prepared for Java 21 on Paper 1.21.11, with no Garbage Collector pauses or external telemetry.
+* 🛡️ **Safety and integrity**: Atomic storage transactions and strict inventory protection.
+* 🎮 **Full integration**: Compatible with Slimefun4-Drake, NetworksV6 logistics networks, heavy machinery and the global economy.
+
+---
+
+## Version compatibility
+
+| Line | Branch | Artifact version | Minecraft | Java | Compile-time Paper API | Status |
+|---|---|---|---|---|---|---|
+| Production | `main` | 1.21.11 line | Paper/Purpur/Folia 1.21.11 | 21 | `1.21.11-R0.1-SNAPSHOT` | production |
+| Universal 26.x | `port-26x` | `1.3.1-Universal-26.x-SNAPSHOT` | Paper/Purpur 26.2 (same codebase as production 1.21.11) | 21 bytecode; runs on 21+ | `1.21.11-R0.1-SNAPSHOT` (via the Slimefun core build) | test (verified on Paper/Purpur 26.2) |
+
+**Minecraft versions older than 1.21.11 are not supported and not tested.**
+
+| Parameter | Requirement |
 |---|---|
-| **Servidor** | Paper / Purpur / Folia **1.21.11** |
+| **Server** | Paper / Purpur / Folia **1.21.11** (26.2 on the Universal line) |
 | **Java** | **Java 21** LTS |
 | **Core** | [Slimefun4-Drake](https://github.com/SlimefunNewHorizons/Slimefun4-Drake) |
-| **Lado** | 100% Servidor (Server-side) |
+| **Side** | 100% server-side |
 
 ---
 
-## 🌐 Línea Universal 26.x (rama `port-26x`)
+## 🌐 Universal 26.x line (branch `port-26x`)
 
-* **Versión:** `1.3.1-Universal-26.x-SNAPSHOT` (separada de la 1.21.11 de `main`).
-* **Namespace upstream restaurado:** vuelve a `io.github.bakedlibs.dough` (commit `69e6dbf`), lo que arregla `CustomGameProfile` frente al Authlib final de 26.x.
-* **Publicación:** `mvn deploy` sube el artefacto a `https://maven.drakescraft.cl/` (repo `maven-repo`); `Slimefun4-Drake` (`port-26x`) lo consume desde ahí. Tras publicar, recompila Slimefun (dough va shadeado).
+* **Version:** `1.3.1-Universal-26.x-SNAPSHOT` (separate from the 1.21.11 version on `main`).
+* **Upstream namespace restored:** back to `io.github.bakedlibs.dough` (commit `69e6dbf`), which fixes `CustomGameProfile` against the final Authlib of 26.x.
+* **Publishing:** `mvn deploy` uploads the artifact to `https://maven.drakescraft.cl/` (`maven-repo` repo); `Slimefun4-Drake` (`port-26x`) consumes it from there. After publishing, rebuild Slimefun (dough is shaded).
 
 ---
 
-## 📥 Instalación
+## 📥 Installation
 
-1. Descarga el `.jar` de la última versión desde la pestaña Releases o Modrinth.
-2. Colócalo en la carpeta `plugins/` del servidor junto a `Slimefun4-Drake.jar`.
-3. Inicia o reinicia el servidor.
+1. Download the `.jar` of the latest version from the Releases tab or Modrinth.
+2. Place it in the server's `plugins/` folder next to `Slimefun4-Drake.jar`.
+3. Start or restart the server.
 
 ---
 
 <div align="center">
 
-**Desarrollado y Mantenido por [DrakesCraft Labs](https://github.com/SlimefunNewHorizons)**  
-Licencia **GPL-3.0-only** / **MIT**.
+**Developed and maintained by [DrakesCraft Labs](https://github.com/SlimefunNewHorizons)**  
+License **GPL-3.0-only** / **MIT**.
 
 </div>
 
