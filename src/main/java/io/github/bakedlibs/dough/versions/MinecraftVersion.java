@@ -64,6 +64,12 @@ public class MinecraftVersion extends SemanticVersion {
             // Strip away the later "-R0.1-SNAPSHOT" part
             String minecraftVersion = CommonPatterns.DASH.split(bukkitVersion)[0];
 
+            // Paper 26.x reports "26.2.build.138-stable": drop the ".build.N" suffix
+            int build = minecraftVersion.indexOf(".build.");
+            if (build > 0) {
+                minecraftVersion = minecraftVersion.substring(0, build);
+            }
+
             // Parse this like any other semantic version
             return new MinecraftVersion(SemanticVersion.parse(minecraftVersion));
         } catch (Exception x) {
